@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Blogs{% endblock %}
+{% block content %}
+<h1>Blog posts</h1>
+{% for post in recent_blogs %}
+    <div class="container">
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.content|safe }}</p>
+        <p>By {{ post.author }}</p>
+        <p>Published {{ post.publish_date }} | <a href="{{ post.permalink }}">Permalink</a></p>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Blogs for {{ year }}{% endblock %}
+{% block content %}
+<div class="container">
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.content|safe }}</p>
+    <p>By {{ post.author }}</p>
+    <p>Published {{ post.publish_date }}</p>
+</div>
+{% endblock %}
