@@ -17,6 +17,9 @@ class Post(models.Model):
     modified_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     author = models.ForeignKey(auth.models.User)
     slug = models.SlugField(max_length=500, blank=True)
+    status = models.CharField(
+        max_length=7, choices=(('publish', 'publish'), ('draft', 'draft')), default='draft'
+    )
 
     def __unicode__(self):
         return self.title
