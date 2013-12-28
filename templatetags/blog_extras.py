@@ -14,6 +14,6 @@ def get_tags(p_id, autoescape=None):
     for t in tags:
         tag_links.append("<a href=\"/blog/tag/"+t.tag+"\">"+t.tag+"</a>")
     if 0 < len(tag_links) and autoescape:
-        return mark_safe(",".join(tag_links))
+        return mark_safe(", ".join(tag_links))
     else:
         return mark_safe("")
