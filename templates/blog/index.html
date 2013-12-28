@@ -1,13 +1,13 @@
 {% extends "base.html" %}
+{% load blog_extras %}
 {% block title %}Blogs{% endblock %}
 {% block content %}
 <h1>Blog posts</h1>
 {% for post in recent_blogs %}
     <div class="container">
-        <h4>{{ post.title }}</h4>
+        <h2>{{ post.title }}</h2>
         <p>{{ post.content|safe }}</p>
-        <p>By {{ post.author }}</p>
-        <p>Published {{ post.publish_date }} | <a href="{{ post.permalink }}">Permalink</a></p>
+        <p>By {{ post.author_display_name }} | Published {{ post.publish_date }} | <a href="{{ post.permalink }}">Permalink</a> | tags: {{ post.id|get_tags }}</p>
     </div>
 {% endfor %}
 {% endblock %}

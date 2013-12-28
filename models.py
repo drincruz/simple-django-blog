@@ -30,12 +30,42 @@ class Post(models.Model):
         """
         pub_date = self.publish_date
         return "{0}/{1}".format(self.publish_date.strftime('%Y/%m/%d'), self.slug)
-
+    
     permalink = property(_get_permalink)
 
+    def _get_author_display_name(self):
+        """
+        Gets a User object and then displays the get_full_name() method
+        """
+        display_name = auth.models.User.objects.get(username=self.author)
+        return display_name.get_full_name()
+
+    author_display_name = property(_get_author_display_name)
+
+
     def get_latest_posts(self, num_posts=3):
+        """
+        Gets the [default] three last posts
+        """
         return self.objects.order_by('publish_date').reverse[:num_posts]
 
     def save(self, *args, **kwargs):
+        """
+        Overrides save
+        """
         self.slug = slugify(self.title)
         super(Post, self).save(*args, **kwargs)
+
+class PostTag(models.Model):
+    """
+    Tags associated with a blog post
+    """
+    post = models.ForeignKey(Post)
+    tag = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.tag
+
+    class Meta:
+        # Make a row unique based on tag AND Post
+        unique_together = ('post', 'tag')
