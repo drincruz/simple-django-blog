@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load blog_extras %}
+{% block title %}Blogs{% endblock %}
+{% block content %}
+{% for post in blogs %}
+  <div class="container">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content|safe }}</p>
+    <p>By {{ post.author_display_name }} | Published {{ post.publish_date }} | <a href="../{{ post.permalink }}">Permalink</a> | tags: {{ post.id|get_tags }}</p>
+  </div>
+{% endfor %}
+<center>
+  <ul class="pagination">
+  {% if blogs.has_previous %}
+    <li><a href="?page={{ blogs.previous_page_number }}">&laquo;</a></li>
+    <li><a href="?page=1">1</a></li>
+  {% endif %}
+  <li class="active"><a href="?page={{ blogs.number }}">{{ blogs.number }}</a></li>
+  {% if blogs.has_next %}
+    <li><a href="?page={{ blogs.paginator.num_pages }}">{{ blogs.paginator.num_pages }}</a></li>
+    <li><a href="?page={{ blogs.next_page_number }}">&raquo;</a></li>
+  {% endif %}
+  </ul>
+</center>
+{% endblock %}

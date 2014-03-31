@@ -10,4 +10,5 @@
         <p>By {{ post.author_display_name }} | Published {{ post.publish_date }} | <a href="{{ post.permalink }}">Permalink</a> | tags: {{ post.id|get_tags }}</p>
     </div>
 {% endfor %}
+<p align="center"><a href="archive/">Read older entries</a></p>
 {% endblock %}
