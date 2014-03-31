@@ -1,3 +1,9 @@
+"""
+blog views
+
+"""
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.forms.models import modelformset_factory
@@ -15,6 +21,31 @@ def index(request):
         'blog/index.html',
         {
             'blogs': latest_blog_posts,
+        }
+    )
+
+def archive(request):
+    """
+    Blog archive
+
+    """
+    ## Blog posts on index have 3 latest, so we'll show from the 3 latest on
+    blog_posts = Post.objects.filter(status='publish').order_by('-publish_date')[3:]
+
+    # Pagination
+    paginator = Paginator(blog_posts, 5)
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+    return render_to_response(
+        'blog/archive.html',
+        {
+            'blogs': posts,
         }
     )
 
