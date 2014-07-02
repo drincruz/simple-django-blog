@@ -1,16 +1,29 @@
 """
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
+This will be your unit tests for the simple blog
 
-Replace this with more appropriate tests for your application.
+
 """
 
 from django.test import TestCase
 
+from models import Post
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+class SimplePostTest(TestCase):
+    def setUp(self):
+        # Create a 'Post' object
+        blog_post = Post.objects.create(
+                title = 'My test title',
+                content = 'This is the blog content',
+            )
+
+    def test_post_save(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Test that post gets saved properly
+
         """
-        self.assertEqual(1 + 1, 2)
+        post = Post.objects.get(
+                title='My test title',
+                content='This is the blog content'
+            )
+        self.assertEqual(post.title, 'My test title')
+        self.assertEqual(post.content, 'This is the blog content')
