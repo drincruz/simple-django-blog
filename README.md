@@ -23,3 +23,14 @@ Updates
 ----------
 
 * Added pagination
+
+
+v0.1.1
+==========
+
+
+Release Notes
+----------
+
+
+I added a simple unit test example.
